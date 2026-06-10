@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>坦克对决 / Tank Duel</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="gameCanvas" aria-label="坦克对决游戏画布"></canvas>
+
+      <section id="menuOverlay" class="overlay menu-overlay">
+        <div class="menu-panel">
+          <section id="mainMenuPage" class="menu-page">
+            <p class="eyebrow">第三人称射击版本</p>
+            <h1>坦克对决</h1>
+            <div class="settings-grid">
+              <label class="field">
+                <span>地图大小</span>
+                <select id="mapSizeSelect">
+                  <option value="small" selected>小</option>
+                  <option value="medium">中</option>
+                  <option value="large">大</option>
+                </select>
+              </label>
+              <label class="toggle-field">
+                <input id="mazeToggle" type="checkbox" checked />
+                <span>生成迷宫</span>
+              </label>
+            </div>
+            <div class="menu-actions">
+              <button id="startButton" class="primary-button">开始游戏</button>
+              <button id="settingsPageButton" class="ghost-button">战斗参数</button>
+              <button id="lanButton" class="ghost-button" disabled>局域网联机</button>
+            </div>
+          </section>
+
+          <section id="settingsPage" class="menu-page hidden">
+            <p class="eyebrow">设置页面</p>
+            <h1>战斗参数</h1>
+            <div class="settings-grid advanced-grid">
+              <label class="field">
+                <span>坦克血量</span>
+                <input id="maxHpInput" type="number" min="1" max="999" step="1" value="10" />
+              </label>
+              <label class="field">
+                <span>玩家速度</span>
+                <input id="playerSpeedInput" type="number" min="1" max="40" step="0.5" value="10.5" />
+              </label>
+              <label class="field">
+                <span>车体转向速度</span>
+                <input id="rotationSpeedInput" type="number" min="0.5" max="12" step="0.1" value="3" />
+              </label>
+              <label class="field">
+                <span>敌人速度</span>
+                <input id="enemySpeedInput" type="number" min="1" max="40" step="0.5" value="8.6" />
+              </label>
+              <label class="field">
+                <span>炮弹伤害</span>
+                <input id="damageInput" type="number" min="1" max="999" step="1" value="100" />
+              </label>
+              <label class="field">
+                <span>炮弹速度</span>
+                <input id="projectileSpeedInput" type="number" min="5" max="100" step="1" value="36" />
+              </label>
+              <label class="field">
+                <span>射击间隔(s)</span>
+                <input id="fireIntervalInput" type="number" min="0.05" max="5" step="0.05" value="0.42" />
+              </label>
+              <label class="field">
+                <span>炮弹存在(s)</span>
+                <input id="projectileLifeInput" type="number" min="0.2" max="30" step="0.1" value="6.5" />
+              </label>
+              <label class="field">
+                <span>出生无敌(s)</span>
+                <input id="invulnerableInput" type="number" min="0" max="10" step="0.1" value="1" />
+              </label>
+            </div>
+            <div class="menu-actions">
+              <button id="backToMainButton" class="primary-button">返回</button>
+            </div>
+          </section>
+          <p id="menuError" class="menu-error hidden"></p>
+        </div>
+      </section>
+
+      <section id="hud" class="hud hidden">
+        <div class="status-row">
+          <div class="hp-card">
+            <span>生命值</span>
+            <strong id="playerHp">10</strong>
+            <div class="hp-track"><i id="playerHpFill"></i></div>
+          </div>
+          <div class="hp-card enemy">
+            <span>敌方生命值</span>
+            <strong id="enemyHp">10</strong>
+            <div class="hp-track"><i id="enemyHpFill"></i></div>
+          </div>
+        </div>
+        <section class="scoreboard" aria-label="计分板">
+          <table>
+            <thead>
+              <tr>
+                <th>玩家</th>
+                <th>击杀</th>
+                <th>死亡</th>
+                <th>助攻</th>
+              </tr>
+            </thead>
+            <tbody id="scoreboardBody"></tbody>
+          </table>
+        </section>
+        <canvas id="minimap" class="minimap" width="178" height="178" aria-label="迷你地图"></canvas>
+        <div class="crosshair" aria-hidden="true"></div>
+        <div id="roundMessage" class="round-message hidden"></div>
+      </section>
+
+      <section id="loadingOverlay" class="overlay loading-overlay hidden">
+        <div class="loader"></div>
+        <p>正在生成迷宫...</p>
+      </section>
+    </main>
+
+    <script defer src="./src/three-lite.js"></script>
+    <script defer src="./src/config.js"></script>
+    <script defer src="./src/agent-api.js"></script>
+    <script defer src="./src/lang.js"></script>
+    <script defer src="./src/main.js"></script>
+  </body>
+</html>
